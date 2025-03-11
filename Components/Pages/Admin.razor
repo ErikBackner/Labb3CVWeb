@@ -1,0 +1,196 @@
+﻿@page "/admin"
+
+@using Labb3CVWeb.Services
+@using Labb3CVWeb.Models
+@using Microsoft.AspNetCore.Authorization
+
+@inject ApiService ApiService
+@inject NavigationManager Navigation
+@inject HttpClient Http
+
+@rendermode InteractiveServer
+
+@attribute [Authorize(Roles = "Admin")]
+
+<div class="admin-panel">
+    <div class="home-icon">
+        <a href="/" title="Landing Page">
+            <i class="fas fa-home"></i>
+        </a>
+    </div>
+
+    <h3 class="admin-title">Admin Panel</h3>
+
+    <div class="section">
+        <h4>Add New Project</h4>
+        <EditForm Model="@newProject" OnValidSubmit="CreateProject">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form">
+                <label for="projectName">Project Name</label>
+                <InputText id="projectName" @bind-Value="newProject.Name" class="form-control" />
+                <ValidationMessage For="@(() => newProject.Name)" />
+
+                <label for="projectCourse">Course</label>
+                <InputText id="projectCourse" @bind-Value="newProject.Course" class="form-control" />
+                <ValidationMessage For="@(() => newProject.Course)" />
+
+                <label for="projectDescription">Project Description</label>
+                <InputTextArea id="projectDescription" @bind-Value="newProject.Description" class="form-control" />
+                <ValidationMessage For="@(() => newProject.Description)" />
+
+                <label for="projectGitHub">GitHub Link</label>
+                <InputText id="projectGitHub" @bind-Value="newProject.GitHubLink" class="form-control" />
+                <ValidationMessage For="@(() => newProject.GitHubLink)" />
+
+                <button class="btn btn-submit" type="submit">Add</button>
+            </div>
+        </EditForm>
+
+        @if (!string.IsNullOrEmpty(confirmationMessageForCreateProject))
+        {
+            <div class="confirmation-message success">
+                @confirmationMessageForCreateProject
+            </div>
+        }
+    </div>
+
+    <div class="section">
+        <h4>Add New Skill</h4>
+        <EditForm Model="@newSkill" OnValidSubmit="CreateSkill">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form">
+                <label for="skillName">Skill Name</label>
+                <InputText id="skillName" @bind-Value="newSkill.Name" class="form-control" />
+                <ValidationMessage For="@(() => newSkill.Name)" />
+
+                <label for="skillExperience">Years of Experience</label>
+                <InputNumber id="skillExperience" @bind-Value="newSkill.YearsOfExperience" class="form-control" />
+                <ValidationMessage For="@(() => newSkill.YearsOfExperience)" />
+
+                <label for="skillLevel">Skill Level</label>
+                <InputNumber id="skillLevel" @bind-Value="newSkill.SkillLevel" class="form-control" />
+                <ValidationMessage For="@(() => newSkill.SkillLevel)" />
+
+                <button class="btn btn-submit" type="submit">Add</button>
+            </div>
+        </EditForm>
+
+        @if (!string.IsNullOrEmpty(confirmationMessageForCreateSkill))
+        {
+            <div class="confirmation-message success">
+                @confirmationMessageForCreateSkill
+            </div>
+        }
+    </div>
+
+    <div class="section">
+        <h4>Delete Project</h4>
+        <div class="form">
+            <select @bind="selectedProjectId" class="form-control">
+                <option value="">Select a project to delete</option>
+                @foreach (var project in projects)
+                {
+                    <option value="@project.Id">@project.Name</option>
+                }
+            </select>
+            <br />
+            <button class="btn btn-delete" @onclick="DeleteProject">Delete</button>
+        </div>
+
+        @if (!string.IsNullOrEmpty(confirmationMessageForDeleteProject))
+        {
+            <div class="confirmation-message success">
+                @confirmationMessageForDeleteProject
+            </div>
+        }
+    </div>
+
+    <div class="section">
+        <h4>Delete Skill</h4>
+        <div class="form">
+            <select @bind="selectedSkillId" class="form-control">
+                <option value="">Select a skill to delete</option>
+                @foreach (var skill in skills)
+                {
+                    <option value="@skill.Id">@skill.Name</option>
+                }
+            </select>
+            <br />
+            <button class="btn btn-delete" @onclick="DeleteSkill">Delete</button>
+        </div>
+
+        @if (!string.IsNullOrEmpty(confirmationMessageForDeleteSkill))
+        {
+            <div class="confirmation-message success">
+                @confirmationMessageForDeleteSkill
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    private Project newProject = new Project();
+    private Skill newSkill = new Skill();
+    private int selectedProjectId;
+    private int selectedSkillId;
+
+    private List<Project> projects = new List<Project>();
+    private List<Skill> skills = new List<Skill>();
+
+    private string confirmationMessageForCreateProject;
+    private string confirmationMessageForCreateSkill;
+    private string confirmationMessageForDeleteProject;
+    private string confirmationMessageForDeleteSkill;
+
+    protected override async Task OnInitializedAsync()
+    {
+        projects = await ApiService.GetProjectsAsync();
+        skills = await ApiService.GetSkillsAsync();
+    }
+
+    private async Task CreateProject()
+    {
+        await ApiService.CreateProjectAsync(newProject);
+        newProject = new Project();
+        projects = await ApiService.GetProjectsAsync();
+        confirmationMessageForCreateProject = "Project created successfully!";
+    }
+
+    private async Task DeleteProject()
+    {
+        if (selectedProjectId == 0)
+        {
+            return;
+        }
+
+        await ApiService.DeleteProjectAsync(selectedProjectId);
+        projects = await ApiService.GetProjectsAsync();
+        selectedProjectId = 0;
+        confirmationMessageForDeleteProject = "Project deleted successfully!";
+    }
+
+    private async Task CreateSkill()
+    {
+        await ApiService.CreateSkillAsync(newSkill);
+        newSkill = new Skill();
+        skills = await ApiService.GetSkillsAsync();
+        confirmationMessageForCreateSkill = "Skill created successfully!";
+    }
+
+    private async Task DeleteSkill()
+    {
+        if (selectedSkillId == 0)
+        {
+            return;
+        }
+
+        await ApiService.DeleteSkillAsync(selectedSkillId);
+        skills = await ApiService.GetSkillsAsync();
+        selectedSkillId = 0;
+        confirmationMessageForDeleteSkill = "Skill deleted successfully!";
+    }
+}

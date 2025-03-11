@@ -1,0 +1,124 @@
+﻿@page "/"
+@inject ApiService ApiService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager Navigation
+
+@using Labb3CVWeb.Services
+@using Labb3CVWeb.Models
+@using System.Collections.Generic
+@using System.Threading.Tasks
+@using Microsoft.AspNetCore.Components.Authorization
+
+<div class="cv-container">
+
+    <div class="cv-header">
+        <img src="images/Erik2.jpg" alt="Profile Picture of Erik Bäckner" class="cv-profile-img" />
+        <div class="cv-info">
+            <h1>Erik Bäckner</h1>
+            <h3>.NET Cloud Developer Student</h3>
+            <p>IT-Högskolan</p>
+            <p>Curious student, exploring the infinite world of technology.</p>
+        </div>
+    </div>
+
+    <div class="cv-section">
+        <h2>My Links</h2>
+        <p class="cv-links">
+            <a href="mailto:erik.backner@iths.se" target="_blank">
+                <i class="fas fa-envelope"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/erikbackner/" target="_blank">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/ErikBackner" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+        </p>
+    </div>
+
+    <div class="cv-section cv-projects">
+        <h2>My Projects</h2>
+        <div class="projects-content">
+            @if (projects == null || !projects.Any())
+            {
+                <p><em>No projects found.</em></p>
+            }
+            else
+            {
+                <ul>
+                    @foreach (var project in projects)
+                    {
+                        <li>
+                            <strong>@project.Name</strong> - @project.Course
+                            <p>@project.Description</p>
+                            @if (!string.IsNullOrEmpty(project.GitHubLink))
+                            {
+                                <p><a href="@project.GitHubLink" target="_blank" class="github-link">GitHub Link</a></p>
+                            }
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+
+    <div class="cv-section cv-skills">
+        <h2>My Skills</h2>
+        <div class="skills-grid">
+            @if (skills == null || !skills.Any())
+            {
+                <p><em>No Skills found.</em></p>
+            }
+            else
+            {
+                @foreach (var skill in skills)
+                {
+                    <div class="skill-item">
+                        <strong>@skill.Name</strong> - Level: @skill.SkillLevel | @skill.YearsOfExperience years
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    <div class="admin-icons">
+        <a href="/Account/Login" title="Admin Login" class="icon-button">
+            <i class="fas fa-lock"></i>
+        </a>
+        <a href="/PokemonAPI" title="Random Pokémon" class="icon-button">
+            <i class="fas fa-gamepad"></i>
+        </a>
+    </div>
+
+</div>
+
+@code {
+    private List<Project> projects;
+    private List<Skill> skills;
+    private bool isAdmin = false;
+    private bool isAuthenticated = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            projects = await ApiService.GetProjectsAsync() ?? new List<Project>();
+            skills = await ApiService.GetSkillsAsync() ?? new List<Skill>();
+
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            isAuthenticated = user.Identity is not null && user.Identity.IsAuthenticated;
+            isAdmin = isAuthenticated && user.IsInRole("Admin");
+
+            if (isAdmin)
+            {
+                Navigation.NavigateTo("/admin");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching data: {ex.Message}");
+        }
+    }
+}

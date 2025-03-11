@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+
+    <!-- ✅ Preload för snabbare laddning -->
+    <link rel="preload" href="bootstrap/bootstrap.min.css" as="style" />
+
+    <!-- ✅ Bootstrap -->
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css" media="print" onload="this.media='all'" />
+    <noscript>
+        <link rel="stylesheet" href="bootstrap/bootstrap.min.css" />
+    </noscript>
+
+    <!-- ✅ FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="preload" as="style" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
+    <!-- ✅ Appens CSS -->
+    <link rel="stylesheet" href="app.css" media="print" onload="this.media='all'" />
+    <noscript>
+        <link rel="stylesheet" href="app.css" />
+    </noscript>
+
+    <link rel="stylesheet" href="Labb3CVWeb.styles.css" media="print" onload="this.media='all'" />
+    <noscript>
+        <link rel="stylesheet" href="Labb3CVWeb.styles.css" />
+    </noscript>
+
+    <link rel="icon" type="image/png" href="favicon.png" />
+
+    <meta name="description" content="Labb3CVWeb - Skapad med Blazor" />
+
+    <HeadOutlet />
+</head>
+
+<body>
+    <Routes />
+    <script src="_framework/blazor.web.js" defer></script>
+</body>
+
+</html>

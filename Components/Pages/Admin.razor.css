@@ -1,0 +1,131 @@
+﻿body {
+    font-family: 'YourFont', sans-serif;
+    background-color: #0f0f1a;
+    color: #e8e8e8;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Använd min-height istället för height */
+}
+
+.admin-panel {
+    width: 100%;
+    max-width: 800px; /* Minska bredden för bättre layout */
+    min-height: 100vh; /* Se till att panelen fyller skärmen */
+    margin: 0 auto;
+    padding: 30px;
+    background: #1a1a2e;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+    border: 2px solid #c9b458;
+}
+
+.admin-title {
+    text-align: center;
+    font-size: 2.2rem;
+    color: #c9b458;
+    margin-bottom: 25px;
+}
+
+.section {
+    background: #10101a;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+    border: 2px solid #c9b458;
+    width: 100%;
+    max-width: 600px; /* Fixar problemet med för bred layout */
+    margin: 0 auto 20px auto; /* Lägger till mellanrum */
+}
+
+h4 {
+    font-size: 1.6rem;
+    color: #c9b458;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.form label {
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 5px;
+    color: #e8e8e8;
+}
+
+.form input,
+.form textarea,
+.form select {
+    width: 100%; /* Fixat smala fält */
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #c9b458;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    background-color: #1a1a2e;
+    color: #e8e8e8;
+}
+
+.btn {
+    width: auto; /* Fixar breda knappar */
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block;
+    margin: 10px auto; 
+}
+
+.btn-submit {
+    background: #c9b458;
+    color: #1a1a2e;
+}
+
+    .btn-submit:hover {
+        background: #ffcc00;
+        color: #1a1a2e;
+    }
+
+.confirmation-message {
+    border-radius: 10px;
+    padding: 12px 15px;
+    font-size: 1.2rem;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 15px;
+}
+
+    .confirmation-message.success {
+        background-color: #a8d08d;
+        color: #2c3e50;
+        border: 1px solid #76a15d;
+    }
+
+    .confirmation-message.error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+@media (max-width: 768px) {
+    .admin-panel {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .section {
+        width: 100%;
+    }
+
+    .btn {
+        font-size: 1.1rem;
+    }
+
+    h4 {
+        font-size: 1.3rem;
+    }
+}

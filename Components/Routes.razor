@@ -1,0 +1,39 @@
+﻿@using Labb3CVWeb.Components.Account.Shared
+
+<Router AppAssembly="typeof(Program).Assembly">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)">
+            <NotAuthorized>
+                <RedirectToLogin />
+            </NotAuthorized>
+        </AuthorizeRouteView>
+        <FocusOnNavigate RouteData="routeData" Selector="h1" />
+    </Found>
+
+    <!-- ✅ 404 - Custom Error Page -->
+    <NotFound>
+        <div class="not-found-container">
+            <h1>😢 Oops! Sidan finns inte</h1>
+            <p>Vi kunde tyvärr inte hitta sidan du söker.</p>
+            <a href="/" class="btn btn-primary">Tillbaka till Startsidan</a>
+        </div>
+    </NotFound>
+</Router>
+
+<style>
+    .not-found-container {
+        text-align: center;
+        margin-top: 50px;
+    }
+    .not-found-container h1 {
+        font-size: 2rem;
+        color: red;
+    }
+    .not-found-container p {
+        font-size: 1.2rem;
+    }
+    .not-found-container a {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+</style>

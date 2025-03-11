@@ -1,0 +1,130 @@
+﻿/* 🎨 Pokémon API - Stilar */
+
+/* 🏠 Hemknapp */
+.home-icon {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+    .home-icon a {
+        font-size: 24px;
+        color: #c9b458;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+        .home-icon a:hover {
+            color: #ffcc00;
+        }
+
+/* 🟡 Huvudcontainer */
+.pokemon-container {
+    max-width: 450px;
+    margin: 50px auto;
+    padding: 25px;
+    background-color: #1a1a2e;
+    border-radius: 12px;
+    text-align: center;
+    border: 2px solid #c9b458;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+    /* 🏆 Titel */
+    .pokemon-container h2 {
+        color: #c9b458;
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+/* 🎭 Pokémon Box */
+.pokemon-box {
+    background-color: #111;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 15px;
+}
+
+    /* 🖼 Pokémon Bild */
+    .pokemon-box img {
+        max-width: 150px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        border-radius: 8px;
+        border: 2px solid #c9b458;
+        box-shadow: 0px 4px 10px rgba(201, 180, 88, 0.5);
+    }
+
+    /* 📝 Pokémon Namn */
+    .pokemon-box p {
+        font-size: 1.4rem;
+        color: #ffcc00;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+/* ❌ Laddningsfel */
+.error-message {
+    font-size: 1.2rem;
+    color: #ff6666;
+}
+
+/* 🛑 Knappstil */
+.btn {
+    display: inline-block;
+    width: auto;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    z-index: 10;
+    padding: 12px 20px;
+    background-color: #c9b458;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+    .btn:hover {
+        background-color: #ffcc00;
+        transform: scale(1.05);
+    }
+
+    .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+/* 📱 Responsivitet */
+@media (max-width: 576px) {
+    .pokemon-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .pokemon-box img {
+        max-width: 120px;
+    }
+
+    .btn {
+        font-size: 1.1rem;
+        padding: 10px 18px;
+    }
+}
+
+@media (min-width: 768px) {
+    .pokemon-container {
+        max-width: 500px;
+    }
+
+    .pokemon-box img {
+        max-width: 180px;
+    }
+
+    .btn {
+        font-size: 1.3rem;
+        padding: 14px 24px;
+    }
+}

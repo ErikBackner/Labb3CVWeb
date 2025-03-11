@@ -1,0 +1,81 @@
+﻿@page "/Account/Login"
+
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Authentication
+@using Labb3CVWeb.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject ILogger<Login> Logger
+@inject NavigationManager NavigationManager
+
+<PageTitle>Admin LogIn</PageTitle>
+
+<div class="login-container">
+    <h2>Admin LogIn</h2>
+
+    <EditForm Model="Input" method="post" OnValidSubmit="HandleLogin" FormName="login">
+        <DataAnnotationsValidator />
+        <ValidationSummary class="text-danger" />
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <InputText id="email" @bind-Value="Input.Email" required class="form-control" />
+            <ValidationMessage For="() => Input.Email" class="text-danger" />
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <InputText id="password" type="password" @bind-Value="Input.Password" required class="form-control" />
+            <ValidationMessage For="() => Input.Password" class="text-danger" />
+        </div>
+
+        <div class="form-group">
+            <InputCheckbox id="rememberMe" @bind-Value="Input.RememberMe" />
+            <label for="rememberMe">Remember me</label>
+        </div>
+
+        <button type="submit" class="btn login-btn">Log in</button>
+
+    </EditForm>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <p class="text-danger">@errorMessage</p>
+    }
+</div>
+
+@code {
+    private string? errorMessage;
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
+
+    private async Task HandleLogin()
+    {
+        var result = await SignInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, false);
+
+        if (result.Succeeded)
+        {
+            Logger.LogInformation("User logged in.");
+            NavigationManager.NavigateTo("/admin", forceLoad: true);
+        }
+        else
+        {
+            errorMessage = "Invalid login attempt.";
+        }
+    }
+
+    private sealed class InputModel
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = "";
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; } = "";
+
+        public bool RememberMe { get; set; }
+    }
+}

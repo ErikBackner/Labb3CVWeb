@@ -1,0 +1,122 @@
+﻿.cv-container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: rgba(30, 30, 30, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(201, 180, 88, 0.5);
+}
+
+.cv-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #2e2e2e;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.cv-profile-img {
+    width: auto;
+    max-width: 150px;
+    height: auto;
+    border-radius: 50%;
+    border: 3px solid #c9b458;
+    display: block;
+    margin: 10px auto;
+    object-fit: cover;
+    box-shadow: 0px 0px 10px rgba(201, 180, 88, 0.5);
+}
+
+.cv-info h1 {
+    color: #c9b458;
+    margin: 0;
+    font-size: 2.2rem;
+}
+
+.cv-info h3, .cv-info p {
+    color: #e8e8e8;
+    margin: 5px 0;
+}
+
+.cv-section {
+    background-color: #1a1a2e;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 2px solid #c9b458;
+    cursor: pointer;
+}
+
+    .cv-section:hover {
+        background-color: #292929;
+        transition: 0.3s ease-in-out;
+    }
+
+/* 💡 Lägger projekten i en lista och gör länkar tydligare */
+.projects-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.projects-content li {
+    margin-bottom: 10px;
+}
+
+.github-link {
+    color: gold;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+    .github-link:hover {
+        color: #ffcc00;
+    }
+
+/* 🎯 Skills Grid för att visa skills i kolumner */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    text-align: center;
+}
+
+.skill-item {
+    background-color: rgba(50, 50, 50, 0.8);
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #e8e8e8;
+}
+
+/* Admin ikoner */
+.admin-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.icon-button {
+    background: #c9b458;
+    border: 2px solid #ffcc00;
+    color: #1a1a2e;
+    font-size: 1.5rem;
+    padding: 12px 16px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    text-decoration: none;
+}
+
+    .icon-button:hover {
+        background: #ffcc00;
+        transform: scale(1.1);
+    }

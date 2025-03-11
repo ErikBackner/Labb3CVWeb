@@ -1,0 +1,36 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    width: 200px;
+    background-color: #1b1b1b;
+    padding: 20px;
+}
+
+.nav-links {
+    list-style-type: none;
+    padding: 0;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    color: #FFD700;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+    .nav-link i {
+        margin-right: 10px;
+    }
+
+    .nav-link:hover {
+        color: #9E2A2F;
+    }
+
+.login-link {
+    margin-top: auto;
+}

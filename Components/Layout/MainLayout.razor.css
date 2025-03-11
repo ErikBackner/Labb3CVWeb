@@ -1,0 +1,16 @@
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #121212; 
+    color: #e0d8b0;
+}
+
+.content {
+    max-width: 900px;
+    padding: 30px;
+    background: #1c1c1c;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+    border-radius: 10px;
+}

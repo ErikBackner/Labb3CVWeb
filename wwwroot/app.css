@@ -1,0 +1,193 @@
+﻿/* ----- Importera Google Fonts ----- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* ----- Global Styling ----- */
+html, body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #1a1a2e;
+    color: #e8e8e8;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* 🔹 Huvudcontainer */
+.cv-container {
+    max-width: 900px;
+    width: 90%;
+    margin: 50px auto;
+    background-color: #2e2e2e;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(201, 180, 88, 0.3);
+    text-align: center;
+}
+
+/* 🔹 Profilbild */
+.profile-img {
+    width: clamp(120px, 15vw, 150px);
+    height: clamp(120px, 15vw, 150px);
+    border-radius: 50%;
+    display: block;
+    margin: 15px auto;
+    border: 3px solid #c9b458;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* 🔹 Justera hus-ikonens färg */
+.home-icon a i {
+    color: gold; /* Ändra färgen till guld */
+    font-size: 24px;
+    transition: color 0.3s ease-in-out;
+}
+
+/* 🔹 När musen hovrar över husikonen */
+.home-icon a:hover i {
+    color: #ffcc00;
+}
+
+/* 🔹 Länkar */
+.cv-links {
+    text-align: center;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+}
+
+    .cv-links a {
+        color: gold;
+        margin: 0 10px;
+        transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+    }
+
+        .cv-links a:hover {
+            color: red;
+            transform: scale(1.2);
+        }
+
+/* 🔹 Sektioner */
+.cv-section {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    margin: 25px 0;
+    border: 2px solid #c9b458;
+    border-radius: 12px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+}
+
+    .cv-section:hover {
+        background: rgba(201, 180, 88, 0.2);
+        transform: scale(1.03);
+    }
+
+    .cv-section h2 {
+        color: #c9b458;
+        cursor: pointer;
+        font-size: clamp(1.5rem, 2vw, 1.8rem);
+        text-transform: uppercase;
+        margin: 15px 0;
+    }
+
+/* 🔹 Standardstil för ALLA knappar */
+button {
+    background-color: #c9b458; /* Standardgul */
+    color: black;
+    font-weight: bold;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+    /* 🔹 Hover-effekt för ALLA knappar UTOM Log in-knappen */
+    button:not(.login-btn):hover {
+        background-color: #ffcc00;
+        transform: scale(1.05);
+    }
+
+/* 🔹 Log in-knappen - Standardfärg (grön) */
+.login-btn {
+    background-color: #78a046 !important; /* Mörkgrön */
+    color: black !important;
+    font-weight: bold;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+    /* 🔹 Hover-effekt för Log in-knappen (ändrar färg till gul) */
+    .login-btn:hover {
+        background-color: #ffcc00 !important;
+        transform: scale(1.05);
+    }
+
+    /* 🔹 Om Log in-knappen är disabled, behåll grön färg */
+    .login-btn:disabled {
+        background-color: #78a046 !important;
+        color: black !important;
+        opacity: 1 !important;
+        cursor: not-allowed;
+    }
+
+/* 🔹 Admin Login Stil */
+.login-container {
+    background: #1a1a2e;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    border: 2px solid #c9b458;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+}
+
+h2 {
+    font-size: clamp(1.8rem, 2.2vw, 2rem);
+    color: #c9b458;
+    margin-bottom: 20px;
+}
+
+/* 🔹 Responsivitet */
+@media (max-width: 1024px) {
+    .cv-container {
+        max-width: 95%;
+        padding: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .cv-container {
+        max-width: 95%;
+        padding: 20px;
+    }
+
+    .profile-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .cv-section {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+}

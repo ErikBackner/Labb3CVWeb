@@ -1,0 +1,89 @@
+﻿@page "/PokemonAPI"
+@rendermode InteractiveServer
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<PageTitle>Random Pokémon</PageTitle>
+
+<div class="pokemon-container">
+    <!-- Home Button -->
+    <div class="home-icon">
+        <a href="/" title="Go Home">
+            <i class="fas fa-home"></i>
+        </a>
+    </div>
+
+    <h2>Now that you're here, you might just try to catch a wild Pikachu!</h2>
+
+    <div class="pokemon-box">
+        @if (!string.IsNullOrEmpty(pokemonImageUrl))
+        {
+            <img src="@pokemonImageUrl" alt="@pokemonName">
+            <p>@pokemonName</p>
+        }
+        else
+        {
+            <p class="error-message">Failed to load Pokémon</p>
+        }
+    </div>
+
+    <button class="btn" @onclick="LoadRandomPokemon">Get Another Pokémon</button>
+</div>
+
+@code {
+    private string pokemonImageUrl = "";
+    private string pokemonName = "";
+
+    private async Task LoadRandomPokemon()
+    {
+        Console.WriteLine("✅ Button Clicked! Fetching new Pokémon...");
+
+        try
+        {
+            var randomId = new Random().Next(1, 151); // Hämta en Pokémon mellan 1-151
+            Console.WriteLine($"🔍 Fetching Pokémon with ID: {randomId}");
+
+            var response = await Http.GetFromJsonAsync<PokemonResponse>($"https://pokeapi.co/api/v2/pokemon/{randomId}");
+
+            if (response != null)
+            {
+                Console.WriteLine($"🎉 Fetched Pokémon: {response.name}");
+
+                pokemonImageUrl = response.sprites?.front_default ?? "";
+                pokemonName = response.name.ToUpper();
+
+                if (string.IsNullOrEmpty(pokemonImageUrl))
+                {
+                    Console.WriteLine("⚠️ Pokémon image is missing!");
+                    pokemonName = "Image not available";
+                }
+            }
+            else
+            {
+                Console.WriteLine("❌ API response is null");
+                pokemonImageUrl = "";
+                pokemonName = "Failed to load Pokémon";
+            }
+
+            StateHasChanged(); // Uppdatera UI efter API-anrop
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"❌ Error fetching Pokémon: {ex.Message}");
+            pokemonImageUrl = "";
+            pokemonName = "Error fetching Pokémon";
+        }
+    }
+
+    private class PokemonResponse
+    {
+        public string name { get; set; }
+        public Sprites sprites { get; set; }
+    }
+
+    private class Sprites
+    {
+        public string front_default { get; set; }
+    }
+}
