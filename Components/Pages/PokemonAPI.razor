@@ -7,7 +7,6 @@
 <PageTitle>Random Pokémon</PageTitle>
 
 <div class="pokemon-container">
-    <!-- Home Button -->
     <div class="home-icon">
         <a href="/" title="Go Home">
             <i class="fas fa-home"></i>
@@ -37,11 +36,11 @@
 
     private async Task LoadRandomPokemon()
     {
-        Console.WriteLine("✅ Button Clicked! Fetching new Pokémon...");
+        Console.WriteLine(" Button Clicked! Fetching new Pokémon...");
 
         try
         {
-            var randomId = new Random().Next(1, 151); // Hämta en Pokémon mellan 1-151
+            var randomId = new Random().Next(1, 151); 
             Console.WriteLine($"🔍 Fetching Pokémon with ID: {randomId}");
 
             var response = await Http.GetFromJsonAsync<PokemonResponse>($"https://pokeapi.co/api/v2/pokemon/{randomId}");
@@ -55,22 +54,22 @@
 
                 if (string.IsNullOrEmpty(pokemonImageUrl))
                 {
-                    Console.WriteLine("⚠️ Pokémon image is missing!");
+                    Console.WriteLine(" Pokémon image is missing!");
                     pokemonName = "Image not available";
                 }
             }
             else
             {
-                Console.WriteLine("❌ API response is null");
+                Console.WriteLine(" API response is null");
                 pokemonImageUrl = "";
                 pokemonName = "Failed to load Pokémon";
             }
 
-            StateHasChanged(); // Uppdatera UI efter API-anrop
+            StateHasChanged(); 
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"❌ Error fetching Pokémon: {ex.Message}");
+            Console.WriteLine($" Error fetching Pokémon: {ex.Message}");
             pokemonImageUrl = "";
             pokemonName = "Error fetching Pokémon";
         }

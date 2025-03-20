@@ -14,7 +14,7 @@ namespace Labb3CVWeb
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // ✅ Lägg till Razor Components och Authentication
+           
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
@@ -23,11 +23,7 @@ namespace Labb3CVWeb
             builder.Services.AddScoped<IdentityRedirectManager>();
             builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
 
-            // ✅ Lägg till HttpClient för API-anrop
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://pokeapi.co/") });
-
-            // ✅ Lägg till Authentication & Authorization
-            builder.Services.AddAuthorization();
+           
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultScheme = IdentityConstants.ApplicationScheme;
@@ -35,17 +31,17 @@ namespace Labb3CVWeb
             })
             .AddIdentityCookies();
 
-            // ✅ Hämta API URL från `appsettings.json`
+           
             var apiUrl = builder.Configuration["ApiBaseUrl"];
             if (string.IsNullOrEmpty(apiUrl))
             {
                 apiUrl = builder.Environment.IsDevelopment()
-                    ? "https://localhost:7204"
-                    : builder.Configuration["ApiBaseUrl"];
+                    ? "https://localhost:7204" 
+                    : builder.Configuration["ApiBaseUrl"]; 
             }
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiUrl) });
 
-            // ✅ Anslut till backend-databasen
+            
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
                 ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
@@ -54,10 +50,9 @@ namespace Labb3CVWeb
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            // ✅ Lägg till Identity med roller
             builder.Services.AddIdentityCore<ApplicationUser>(options =>
             {
-                options.SignIn.RequireConfirmedAccount = false; // ⬅️ Ändra till "false" om du inte använder email-verifiering
+                options.SignIn.RequireConfirmedAccount = true; 
             })
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -66,15 +61,14 @@ namespace Labb3CVWeb
 
             builder.Services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = "/Account/Login";  // ⬅️ Login-sidan
-                options.AccessDeniedPath = "/Account/AccessDenied"; // ⬅️ Om användaren saknar behörighet
+                options.LoginPath = "/Account/Login";
+                options.AccessDeniedPath = "/Account/AccessDenied";
             });
 
             builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
-
             builder.Services.AddScoped<ApiService>();
 
-            // ✅ Lägg till CORS-policy
+           
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", policy =>
@@ -87,7 +81,7 @@ namespace Labb3CVWeb
 
             var app = builder.Build();
 
-            // ✅ Skapa admin-roll vid första start
+           
             using (var scope = app.Services.CreateScope())
             {
                 await CreateAdminRole(scope.ServiceProvider, builder.Configuration);
@@ -103,13 +97,12 @@ namespace Labb3CVWeb
                 app.UseHsts();
             }
 
-            // ✅ Middleware i rätt ordning
+          
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseRouting();
-            app.UseAuthentication(); // ⬅️ Måste vara före Authorization
-            app.UseAuthorization();  // ⬅️ Måste vara före Antiforgery
-            app.UseAntiforgery();    // ⬅️ Flytta hit!
+            app.UseAntiforgery();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseCors("AllowAll");
 
             app.MapRazorComponents<App>()
@@ -120,7 +113,7 @@ namespace Labb3CVWeb
             await app.RunAsync();
         }
 
-        // ✅ Skapa Admin-roll vid första start
+        
         public static async Task CreateAdminRole(IServiceProvider serviceProvider, IConfiguration configuration)
         {
             using (var scope = serviceProvider.CreateScope())
@@ -131,13 +124,13 @@ namespace Labb3CVWeb
                 string adminEmail = configuration["AdminUser:Email"] ?? throw new InvalidOperationException("Admin email is missing.");
                 string adminPassword = configuration["AdminUser:Password"] ?? throw new InvalidOperationException("Admin password is missing.");
 
-                // ✅ Skapa Admin-roll om den inte finns
+                
                 if (!await roleManager.RoleExistsAsync("Admin"))
                 {
                     await roleManager.CreateAsync(new IdentityRole("Admin"));
                 }
 
-                // ✅ Skapa admin-användare om den inte finns
+               
                 var adminUser = await userManager.FindByEmailAsync(adminEmail);
                 if (adminUser == null)
                 {
@@ -149,7 +142,7 @@ namespace Labb3CVWeb
                     }
                 }
 
-                // ✅ Lägg till Admin-rollen om användaren inte redan har den
+               
                 if (!await userManager.IsInRoleAsync(adminUser, "Admin"))
                 {
                     await userManager.AddToRoleAsync(adminUser, "Admin");

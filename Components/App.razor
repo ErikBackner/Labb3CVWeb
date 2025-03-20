@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@namespace Labb3CVWeb
+@using Microsoft.AspNetCore.Components.Web
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,20 +9,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="/" />
 
-    <!-- ✅ Preload för snabbare laddning -->
     <link rel="preload" href="bootstrap/bootstrap.min.css" as="style" />
 
-    <!-- ✅ Bootstrap -->
     <link rel="stylesheet" href="bootstrap/bootstrap.min.css" media="print" onload="this.media='all'" />
     <noscript>
         <link rel="stylesheet" href="bootstrap/bootstrap.min.css" />
     </noscript>
 
-    <!-- ✅ FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="preload" as="style" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
 
-    <!-- ✅ Appens CSS -->
     <link rel="stylesheet" href="app.css" media="print" onload="this.media='all'" />
     <noscript>
         <link rel="stylesheet" href="app.css" />

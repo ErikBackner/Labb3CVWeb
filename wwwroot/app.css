@@ -1,7 +1,6 @@
-﻿/* ----- Importera Google Fonts ----- */
+﻿
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-/* ----- Global Styling ----- */
 html, body {
     font-family: 'Poppins', sans-serif;
     background-color: #1a1a2e;
@@ -15,7 +14,6 @@ html, body {
     min-height: 100vh;
 }
 
-/* 🔹 Huvudcontainer */
 .cv-container {
     max-width: 900px;
     width: 90%;
@@ -27,7 +25,6 @@ html, body {
     text-align: center;
 }
 
-/* 🔹 Profilbild */
 .profile-img {
     width: clamp(120px, 15vw, 150px);
     height: clamp(120px, 15vw, 150px);
@@ -38,19 +35,16 @@ html, body {
     transition: transform 0.3s ease-in-out;
 }
 
-/* 🔹 Justera hus-ikonens färg */
 .home-icon a i {
-    color: gold; /* Ändra färgen till guld */
+    color: gold; 
     font-size: 24px;
     transition: color 0.3s ease-in-out;
 }
 
-/* 🔹 När musen hovrar över husikonen */
 .home-icon a:hover i {
     color: #ffcc00;
 }
 
-/* 🔹 Länkar */
 .cv-links {
     text-align: center;
     font-size: clamp(1.2rem, 2vw, 1.5rem);
@@ -67,7 +61,6 @@ html, body {
             transform: scale(1.2);
         }
 
-/* 🔹 Sektioner */
 .cv-section {
     background: rgba(0, 0, 0, 0.3);
     padding: 20px;
@@ -91,9 +84,8 @@ html, body {
         margin: 15px 0;
     }
 
-/* 🔹 Standardstil för ALLA knappar */
 button {
-    background-color: #c9b458; /* Standardgul */
+    background-color: #c9b458; 
     color: black;
     font-weight: bold;
     padding: 12px;
@@ -106,15 +98,13 @@ button {
     transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
-    /* 🔹 Hover-effekt för ALLA knappar UTOM Log in-knappen */
     button:not(.login-btn):hover {
         background-color: #ffcc00;
         transform: scale(1.05);
     }
 
-/* 🔹 Log in-knappen - Standardfärg (grön) */
 .login-btn {
-    background-color: #78a046 !important; /* Mörkgrön */
+    background-color: #78a046 !important;
     color: black !important;
     font-weight: bold;
     padding: 12px;
@@ -126,14 +116,11 @@ button {
     text-transform: uppercase;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
-    /* 🔹 Hover-effekt för Log in-knappen (ändrar färg till gul) */
     .login-btn:hover {
         background-color: #ffcc00 !important;
         transform: scale(1.05);
     }
 
-    /* 🔹 Om Log in-knappen är disabled, behåll grön färg */
     .login-btn:disabled {
         background-color: #78a046 !important;
         color: black !important;
@@ -141,7 +128,6 @@ button {
         cursor: not-allowed;
     }
 
-/* 🔹 Admin Login Stil */
 .login-container {
     background: #1a1a2e;
     padding: 40px;
@@ -160,7 +146,6 @@ h2 {
     margin-bottom: 20px;
 }
 
-/* 🔹 Responsivitet */
 @media (max-width: 1024px) {
     .cv-container {
         max-width: 95%;

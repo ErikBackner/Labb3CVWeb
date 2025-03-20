@@ -15,7 +15,6 @@ namespace Labb3CVWeb.Services
             _httpClient = httpClient;
         }
 
-        // ======================= Projects API =======================
         public async Task<List<Project>> GetProjectsAsync()
         {
             return await _httpClient.GetFromJsonAsync<List<Project>>("api/projects") ?? new List<Project>();
@@ -44,7 +43,6 @@ namespace Labb3CVWeb.Services
             return response.IsSuccessStatusCode;
         }
 
-        // ======================= Skills API =======================
         public async Task<List<Skill>> GetSkillsAsync()
         {
             return await _httpClient.GetFromJsonAsync<List<Skill>>("api/skills") ?? new List<Skill>();
@@ -73,7 +71,6 @@ namespace Labb3CVWeb.Services
             return response.IsSuccessStatusCode;
         }
 
-        // ======================= Project Skills API =======================
         public async Task<bool> AddSkillToProjectAsync(int projectId, int skillId)
         {
             var response = await _httpClient.PostAsJsonAsync($"api/projects/{projectId}/addSkill", skillId);
